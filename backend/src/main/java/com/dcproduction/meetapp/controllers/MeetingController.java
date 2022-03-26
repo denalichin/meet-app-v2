@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 //creating the rest API. url commands call commands on the repository
-// @CrossOrigin("*")
+@CrossOrigin("*")//REMOVE WHEN DONE TESTING this is needed or else frontend is denied access for now
 @RestController
 @RequestMapping("test/hello")
 public class MeetingController {
