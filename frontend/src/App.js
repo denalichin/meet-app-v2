@@ -24,6 +24,16 @@ const Meetings = () => {
       <div key={index}>
           <h1>{meetingData.name}</h1>
           <p>{meetingData.url}</p>
+
+          {meetingData.users.map((userdata, userIndex) => { //submapping to map out users objects
+            return(
+              <div key = {userIndex}>
+                <p>{userdata.username}</p>
+                <p>{userdata.availability}</p>
+              </div>
+            )
+          })}
+
       </div>
     )
   })
