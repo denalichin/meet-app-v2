@@ -4,7 +4,7 @@ import React, {Component, useState} from "react";
 export function TimeSelector({
     setTimeFunction, htmlName, htmlId, defaultValue,}) {
 
-    const [selectedValue, setSelectedValue] = useState(defaultValue);
+    // const [selectedValue, setSelectedValue] = useState(defaultValue);
 
 //htmlName, htmlId, defaultValue are prop values that are passed in from App.js
     let times = [
@@ -38,7 +38,7 @@ export function TimeSelector({
     // console.log(htmlName);
 
     const assignValue=(event)=>{
-        setSelectedValue(event.target.value);
+        // setSelectedValue(event.target.value);
         setTimeFunction(event.target.value);
         console.log("selected", times[event.target.value].text, "for", htmlName);
     }
