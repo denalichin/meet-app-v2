@@ -29,16 +29,19 @@ public class Meeting {
     public Meeting(String id, String name, String url, String timezone, String startTime, 
             String endTime, LocalDate startDate, LocalDate endDate, List<User> users) {
     // super();
-    this.id = id;
-    this.name = name;
-    this.url = url;
-    this.timezone = timezone;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.users = users;
-}
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.timezone = timezone;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.users = users;
+    }
+
+    public Meeting(){}
+
     public String getName() {
         return this.name;
     }

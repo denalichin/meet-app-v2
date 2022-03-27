@@ -8,6 +8,9 @@ import com.dcproduction.meetapp.classes.Meeting;
 import com.dcproduction.meetapp.classes.User;
 import com.dcproduction.meetapp.repositories.ItemRepository;
 import com.dcproduction.meetapp.repositories.MeetingRepository;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -47,7 +50,6 @@ public class MeetAppApplication implements CommandLineRunner{
 		meetingDB.save(testMeeting1);
 		meetingDB.save(testMeeting2);
 		System.out.println("FINISHED.");
-
 
 		// Rule 1: embed unless there is a compelling reason not to
 		// Rule 2: avoid JOINS if they can be avoided

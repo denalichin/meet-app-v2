@@ -11,7 +11,7 @@ const Meetings = () => {
   const [meetingsState, setMeetings] = useState([]); //this is the state that will store meeting object
 
   const fetchMeetings = () => {
-    axios.get("http://localhost:8080/test/hello").then(res => {
+    axios.get("http://localhost:8080/meet-app").then(res => {
       console.log("https request returned")
       console.log(res);
       setMeetings(res.data);
@@ -51,12 +51,39 @@ function App() {
   const [timezone, setTimezone] = useState(-8);
 
   const meetingSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault(); //prevents page from refreshing
     alert('Meeting Name:' +  meetingName + 
     '\nStartime: ' + startTime + 
     '\nEndtime: ' + endTime +
     '\nTimezone: ' + timezone
     );
+
+    //defining our meeting object on the frontend to prepare for POST request
+    const meetingObject = {
+      name: meetingName,
+      // url: "temporary_for_now",
+      // timezone: timezone,
+      // startTime: null,
+      // endTime: null,
+      // startDate: null,
+      // endDate: null,
+      // users: {
+      //   0: {
+      //     username: "Blippy",
+      //     password: "geronimo",
+      //     availability: []
+      //   }
+      // }
+    }
+    console.log(meetingObject);
+
+    fetch("http://localhost:8080/meet-app/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify(meetingObject)
+    }).then(()=>{ //async function, this is the callback
+      console.log('new meeting added');
+    })
   }
 
   return (

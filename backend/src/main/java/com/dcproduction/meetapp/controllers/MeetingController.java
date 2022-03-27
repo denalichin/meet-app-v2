@@ -1,17 +1,22 @@
 package com.dcproduction.meetapp.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.dcproduction.meetapp.classes.Meeting;
+import com.dcproduction.meetapp.classes.Test;
 import com.dcproduction.meetapp.classes.User;
 import com.dcproduction.meetapp.repositories.MeetingRepository;
 import com.dcproduction.meetapp.services.MeetingService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.apache.tomcat.util.json.JSONParser;
 import org.bson.json.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 //creating the rest API. url commands call commands on the repository
 @CrossOrigin("*")//REMOVE WHEN DONE TESTING this is needed or else frontend is denied access for now
 @RestController
-@RequestMapping("test/hello")
+@RequestMapping("meet-app")
 public class MeetingController {
     
     @Autowired
@@ -42,6 +47,29 @@ public class MeetingController {
         return service.findMeeting("test meeting");
         // return this.meetingDB.findAll();
     }
+
+    @PostMapping("/create")
+    public String createStudent(@RequestBody String meetingString){
+        System.out.println("meeting recieved: " + meetingString);
+
+        // JsonObject obj = new JsonObject(meetingString);
+
+        // System.out.println("meeting recieved: " + obj.getString("name"));
+
+        // ObjectMapper mapper = new ObjectMapper();
+
+        // Object obj = new JSONParser().parse()
+
+        // try {
+        //     Meeting meetingObject = mapper.readValue(meetingString, Meeting.class);
+        //     System.out.println("meeting name= " + meetingObject.getName());
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
+        // Meeting createdMeeting = meetingDB.insert(meeting); //temporary, needs to go through service
+        return "Meeting received "; //+ createdMeeting.getName();
+    }
+
 
     // @PostMapping("/users/insert")
     // public void insertUser(@RequestBody Users newUser) {

@@ -45,7 +45,7 @@ export function TimeSelector({
 
     return(
         <select name={htmlName} id={htmlId} 
-        onChange={(event)=>assignValue(event)}
+        onChange={(event) => assignValue(event)}
         >
             {/* Mapping through each object in our time array
           and returning an option element with the appropriate attributes / values.
