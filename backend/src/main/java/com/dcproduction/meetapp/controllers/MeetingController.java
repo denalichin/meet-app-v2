@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.tomcat.util.json.JSONParser;
 import org.bson.json.JsonObject;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,13 +53,17 @@ public class MeetingController {
     public String createStudent(@RequestBody String meetingString){
         System.out.println("meeting recieved: " + meetingString);
 
-        // JsonObject obj = new JsonObject(meetingString);
+        JSONObject obj = new JSONObject(meetingString);
+
+        int spacesToIndentEachLevel = 3;
+        
+        //obj.getString("name")
+
+        System.out.println("TEST: PRINTING OUT JSON ");
+        System.out.println(obj.toString(spacesToIndentEachLevel));
 
         // System.out.println("meeting recieved: " + obj.getString("name"));
 
-        // ObjectMapper mapper = new ObjectMapper();
-
-        // Object obj = new JSONParser().parse()
 
         // try {
         //     Meeting meetingObject = mapper.readValue(meetingString, Meeting.class);

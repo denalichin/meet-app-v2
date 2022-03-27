@@ -61,19 +61,19 @@ function App() {
     //defining our meeting object on the frontend to prepare for POST request
     const meetingObject = {
       name: meetingName,
-      // url: "temporary_for_now",
-      // timezone: timezone,
-      // startTime: null,
-      // endTime: null,
-      // startDate: null,
-      // endDate: null,
-      // users: {
-      //   0: {
-      //     username: "Blippy",
-      //     password: "geronimo",
-      //     availability: []
-      //   }
-      // }
+      url: "temporary_for_now",
+      timezone: timezone,
+      startTime: null,
+      endTime: null,
+      startDate: null,
+      endDate: null,
+      users: {
+        0: {
+          username: "Blippy",
+          password: "geronimo",
+          availability: []
+        }
+      }
     }
     console.log(meetingObject);
 
