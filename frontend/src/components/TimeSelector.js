@@ -1,10 +1,12 @@
 import React, {Component, useState} from "react";
 
 
-export function TimeSelector({htmlName, htmlId, defaultValue}) {
+export function TimeSelector({
+    setTimeFunction, htmlName, htmlId, defaultValue,}) {
 
-    // const [htmlName, setHtmlName] = useState("default");
+    const [selectedValue, setSelectedValue] = useState(defaultValue);
 
+//htmlName, htmlId, defaultValue are prop values that are passed in from App.js
     let times = [
         {text: "12:00  AM"},  
         {text: "1:00  AM"},  
@@ -33,10 +35,18 @@ export function TimeSelector({htmlName, htmlId, defaultValue}) {
         {text: "12:00  AM"}
     ]
 
-    console.log(htmlName);
+    // console.log(htmlName);
+
+    const assignValue=(event)=>{
+        setSelectedValue(event.target.value);
+        setTimeFunction(event.target.value);
+        console.log("selected", times[event.target.value].text, "for", htmlName);
+    }
 
     return(
-        <select name={htmlName} id={htmlId}>
+        <select name={htmlName} id={htmlId} 
+        onChange={(event)=>assignValue(event)}
+        >
             {/* Mapping through each object in our time array
           and returning an option element with the appropriate attributes / values.
          */}

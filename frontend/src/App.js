@@ -7,7 +7,7 @@ import { TimeSelector } from "./components/TimeSelector.js";
 
 const Meetings = () => {
 
-  const [meetingsState, setMeetings] = useState([]);
+  const [meetingsState, setMeetings] = useState([]); //this is the state that will store meeting object
 
   const fetchMeetings = () => {
     axios.get("http://localhost:8080/test/hello").then(res => {
@@ -45,10 +45,13 @@ const Meetings = () => {
 function App() {
 
   const [meetingName, setMeetingName] = useState("");
+  const [startTime, setStartTime] = useState(9);
+  const [endTime, setEndTime] = useState(17);
+  const [timezone, setTimezone] = useState("");
 
   const meetingSubmit = (event) => {
     event.preventDefault();
-    alert(`The name you entered was: ${meetingName}`);
+    alert('Meeting Name:' +  meetingName + '\nStartime: ' + startTime + '\nEndtime: ' + endTime);
   }
 
   return (
@@ -61,10 +64,19 @@ function App() {
           onChange={(e) => setMeetingName(e.target.value)}/>  {/* need onChange state never changes */}
         <br/>
         <label for="start-time">No Earlier Than</label>
-        <TimeSelector htmlName="start-time" htmlId="start-time" defaultValue="9"/>
+        <TimeSelector 
+          setTimeFunction = {setStartTime}
+          htmlName="start-time" 
+          htmlId="start-time" 
+          defaultValue={startTime}/>
         <br/>
+
         <label for="end-time">No Later Than</label>
-        <TimeSelector htmlName="end-time" htmlId="end-time" defaultValue="17"/>
+        <TimeSelector 
+          setTimeFunction = {setEndTime}
+          htmlName="end-time" 
+          htmlId="end-time" 
+          defaultValue={endTime}/>
         <br/>
 
       {/* TEMPORARY, USE API CALL LATER?  AUTOSELECT TIMEZONE*/}
