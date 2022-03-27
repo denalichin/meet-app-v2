@@ -61,10 +61,10 @@ function App() {
           onChange={(e) => setMeetingName(e.target.value)}/>  {/* need onChange state never changes */}
         <br/>
         <label for="start-time">No Earlier Than</label>
-        <TimeSelector htmlName="start-time" htmlId="start-time"/>
+        <TimeSelector htmlName="start-time" htmlId="start-time" defaultValue="9"/>
         <br/>
         <label for="end-time">No Later Than</label>
-        <TimeSelector htmlName="end-time" htmlId="end-time"/>
+        <TimeSelector htmlName="end-time" htmlId="end-time" defaultValue="17"/>
         <br/>
 
       {/* TEMPORARY, USE API CALL LATER?  AUTOSELECT TIMEZONE*/}
