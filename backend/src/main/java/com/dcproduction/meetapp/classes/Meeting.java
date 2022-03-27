@@ -16,8 +16,8 @@ public class Meeting {
     private String name;
     private String url;
     private String timezone;
-    private String startTime;
-    private String endTime;
+    private int startTime;  //stored as an integer 0-24
+    private int endTime;
     private LocalDate startDate;
     private LocalDate endDate;
 
@@ -26,10 +26,10 @@ public class Meeting {
     // private List<String> users;
 
     //the constructor
-    public Meeting(String id, String name, String url, String timezone, String startTime, 
-            String endTime, LocalDate startDate, LocalDate endDate, List<User> users) {
+    public Meeting(String name, String url, String timezone, int startTime, 
+            int endTime, LocalDate startDate, LocalDate endDate, List<User> users) {
     // super();
-        this.id = id;
+        // this.id = id;
         this.name = name;
         this.url = url;
         this.timezone = timezone;
@@ -66,19 +66,19 @@ public class Meeting {
         this.timezone = timezone;
     }
 
-    public String getStartTime() {
+    public int getStartTime() {
         return this.startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(int startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public int getEndTime() {
         return this.endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(int endTime) {
         this.endTime = endTime;
     }
 

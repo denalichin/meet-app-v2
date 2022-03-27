@@ -45,8 +45,8 @@ public class MeetAppApplication implements CommandLineRunner{
 		// tempUsers.add("mark caddy");
 
 
-		Meeting testMeeting1 = new Meeting("99", "test meeting", "temporary_url", "pacific", "9:00 am", "9:00 pm", LocalDate.parse("2022-01-01"), LocalDate.parse("2022-09-09"), tempUsers);
-		Meeting testMeeting2 = new Meeting("100", "test meeting2", "temporary_url2", "Eastern", "8:00 am", "10:00 pm", LocalDate.parse("2020-01-01"), LocalDate.parse("2023-09-09"), tempUsers);
+		Meeting testMeeting1 = new Meeting("test meeting", "temporary_url", "pacific", 8, 21, LocalDate.parse("2022-01-01"), LocalDate.parse("2022-09-09"), tempUsers);
+		Meeting testMeeting2 = new Meeting("test meeting2", "temporary_url2", "Eastern", 8, 22, LocalDate.parse("2020-01-01"), LocalDate.parse("2023-09-09"), tempUsers);
 		meetingDB.save(testMeeting1);
 		meetingDB.save(testMeeting2);
 		System.out.println("FINISHED.");

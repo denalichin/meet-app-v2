@@ -1,6 +1,8 @@
 package com.dcproduction.meetapp.controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.dcproduction.meetapp.classes.Meeting;
@@ -61,6 +63,22 @@ public class MeetingController {
 
         System.out.println("TEST: PRINTING OUT JSON ");
         System.out.println(obj.toString(spacesToIndentEachLevel));
+
+        Meeting meetingObj = new Meeting(
+            obj.getString("name"), 
+            obj.getString("url"), 
+            obj.getString("timezone"), 
+            obj.getInt("startTime"), 
+            obj.getInt("endTime"), 
+            LocalDate.parse(obj.getString("startDate")), 
+            LocalDate.parse(obj.getString("endDate")), 
+            new ArrayList<User>());
+
+        System.out.println("CREATED object " + meetingObj.getName());
+
+
+            // (String id, String name, String url, String timezone, String startTime, 
+            // String endTime, LocalDate startDate, LocalDate endDate, List<User> users) {
 
         // System.out.println("meeting recieved: " + obj.getString("name"));
 

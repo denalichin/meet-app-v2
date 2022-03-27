@@ -62,11 +62,11 @@ function App() {
     const meetingObject = {
       name: meetingName,
       url: "temporary_for_now",
-      timezone: timezone,
-      startTime: null,
-      endTime: null,
-      startDate: null,
-      endDate: null,
+      timezone: "temporary_timezone",
+      startTime: startTime,
+      endTime: endTime,
+      startDate: "2022-01-01",
+      endDate: "2022-11-11",
       users: {
         0: {
           username: "Blippy",
