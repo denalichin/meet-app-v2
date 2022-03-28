@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import logo from './logo.svg';
 import './App.css';
 import axios from "axios";
@@ -48,9 +48,19 @@ function App() {
   const [meetingName, setMeetingName] = useState("");
   const [startTime, setStartTime] = useState(9);
   const [endTime, setEndTime] = useState(17);
-  const [timezone, setTimezone] = useState(-8);
+  const [timezone, setTimezone] = useState("");
+
+
+  // const childFunc = React.useRef(null);
 
   const meetingSubmit = (event) => {
+
+    // console.log("invoking child function");
+    // childFunc.current(); //being called async?
+    // setTimezone("HEELLLLLLOOOO");
+    // console.log("finished invoking child function");
+
+
     event.preventDefault(); //prevents page from refreshing
     alert('Meeting Name:' +  meetingName + 
     '\nStartime: ' + startTime + 
@@ -62,7 +72,7 @@ function App() {
     const meetingObject = {
       name: meetingName,
       url: "temporary_for_now",
-      timezone: "temporary_timezone",
+      timezone: timezone,
       startTime: startTime,
       endTime: endTime,
       startDate: "2022-01-01",
@@ -113,14 +123,14 @@ function App() {
 
       {/* TEMPORARY, USE API CALL LATER?  AUTOSELECT TIMEZONE*/}
       <label for="timezone">Timezone:</label>
-      <TimezoneSelector setTimezoneFunction = {setTimezone}/>
+      <TimezoneSelector key="unique_value" setTimezoneFunction = {setTimezone}/>
       
         <br/>
         <input type="submit" value="Create Meeting"/>
 
       </form>
 
-      <Meetings />
+      <Meetings  />
     </div>
   );
 }
