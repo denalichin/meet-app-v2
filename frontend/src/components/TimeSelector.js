@@ -40,7 +40,7 @@ const TimeSelector = React.memo( function TimeSelector({setTimeFunction, htmlNam
     }
 
     return(
-        <select name={htmlName} id={htmlId} 
+        <select key="asdjof" name={htmlName} id={htmlId} 
         onChange={(event) => assignValue(event)}>
             {/* Mapping through each object in our time array
           and returning an option element with the appropriate attributes / values.
@@ -48,9 +48,9 @@ const TimeSelector = React.memo( function TimeSelector({setTimeFunction, htmlNam
             {times.map((t, index) => {
                 if(index == defaultValue){
                     console.log("RENDERING TIME SELECTOR");
-                    return <option value={index} selected="selected">{t.text}</option>
+                    return <option key={"ts"+index} value={index} selected="selected">{t.text}</option>
                 } else {
-                    return <option value={index}>{t.text}</option>
+                    return <option key={"ts"+index} value={index}>{t.text}</option>
                 }
             })
             }

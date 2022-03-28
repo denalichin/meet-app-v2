@@ -89,8 +89,9 @@ public class MeetingController {
         // } catch (IOException e) {
         //     e.printStackTrace();
         // }
+        meetingDB.insert(meetingObj);
         // Meeting createdMeeting = meetingDB.insert(meeting); //temporary, needs to go through service
-        return "Meeting received "; //+ createdMeeting.getName();
+        return "Meeting inserted " + meetingObj.getName(); //+ createdMeeting.getName();
     }
 
 

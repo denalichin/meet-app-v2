@@ -3,6 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import axios from "axios";
 
+import moment from 'moment';
+import 'moment-timezone';
+
 import { TimeSelector } from "./components/TimeSelector.js";
 import {TimezoneSelector} from "./components/TimezoneSelector.js";
 
@@ -48,7 +51,7 @@ function App() {
   const [meetingName, setMeetingName] = useState("");
   const [startTime, setStartTime] = useState(9);
   const [endTime, setEndTime] = useState(17);
-  const [timezone, setTimezone] = useState("");
+  const [timezone, setTimezone] = useState(moment.tz.guess()); //initialize to local timezone
 
 
   // const childFunc = React.useRef(null);
@@ -130,7 +133,7 @@ function App() {
 
       </form>
 
-      <Meetings  />
+      <Meetings key="anothervalue" />
     </div>
   );
 }
