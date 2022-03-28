@@ -22,6 +22,12 @@ public class MeetingService {
         return meetingDB.findMeeting(meetingName);
     }
 
+    public Meeting createMeeting(Meeting meetingObj){
+        return meetingDB.save(meetingObj);
+    }
+
+
+
     // public List<User> findUsers(String meetingName){
     //     return meetingDB.findUsers(meetingName);
     // }

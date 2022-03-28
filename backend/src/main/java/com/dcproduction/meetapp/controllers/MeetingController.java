@@ -52,15 +52,13 @@ public class MeetingController {
     }
 
     @PostMapping("/create")
-    public String createStudent(@RequestBody String meetingString){
+    public Meeting createMeeting(@RequestBody String meetingString){
         System.out.println("meeting recieved: " + meetingString);
 
         JSONObject obj = new JSONObject(meetingString);
 
         int spacesToIndentEachLevel = 3;
         
-        //obj.getString("name")
-
         System.out.println("TEST: PRINTING OUT JSON ");
         System.out.println(obj.toString(spacesToIndentEachLevel));
 
@@ -76,22 +74,7 @@ public class MeetingController {
 
         System.out.println("CREATED object " + meetingObj.getName());
 
-
-            // (String id, String name, String url, String timezone, String startTime, 
-            // String endTime, LocalDate startDate, LocalDate endDate, List<User> users) {
-
-        // System.out.println("meeting recieved: " + obj.getString("name"));
-
-
-        // try {
-        //     Meeting meetingObject = mapper.readValue(meetingString, Meeting.class);
-        //     System.out.println("meeting name= " + meetingObject.getName());
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-        // }
-        meetingDB.insert(meetingObj);
-        // Meeting createdMeeting = meetingDB.insert(meeting); //temporary, needs to go through service
-        return "Meeting inserted " + meetingObj.getName(); //+ createdMeeting.getName();
+        return service.createMeeting(meetingObj);
     }
 
 

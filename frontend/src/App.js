@@ -88,14 +88,14 @@ function App() {
         }
       }
     }
-    console.log(meetingObject);
+    // console.log("Created this object: \n", meetingObject);
 
     fetch("http://localhost:8080/meet-app/create", {
       method: "POST",
       headers: { "Content-Type": "application/json"},
       body: JSON.stringify(meetingObject)
-    }).then(()=>{ //async function, this is the callback
-      console.log('new meeting added');
+    }).then((res)=>{ //async function, this is the callback
+      console.log('MEETING INSERTED: SERVER RESPONSE: \n', res);
     })
   }
 
