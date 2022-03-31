@@ -7,7 +7,12 @@ import moment from 'moment';
 import 'moment-timezone';
 
 import { TimeSelector } from "./components/TimeSelector.js";
-import {TimezoneSelector} from "./components/TimezoneSelector.js";
+import { TimezoneSelector } from "./components/TimezoneSelector.js";
+
+// import { CalendarComponent } from '@syncfusion/ej2-react-calendars';
+
+// import "../node_modules/@syncfusion/ej2-react-calendars/styles/material.css";
+import { CustomCalendar } from "./components/CustomCalendar";
 
 const Meetings = () => {
 
@@ -128,6 +133,14 @@ function App() {
       <label for="timezone">Timezone:</label>
       <TimezoneSelector key="unique_value" setTimezoneFunction = {setTimezone}/>
       
+      {/* <CalendarComponent 
+      id="calendar" 
+
+      isMultiSelection = {true}
+      /> */}
+
+      <CustomCalendar/>
+
         <br/>
         <input type="submit" value="Create Meeting"/>
 

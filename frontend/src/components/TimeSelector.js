@@ -3,7 +3,6 @@ import React, {Component, useState} from "react";
 
 const TimeSelector = React.memo( function TimeSelector({setTimeFunction, htmlName, htmlId, defaultValue}) {
 
-    // const [selectedValue, setSelectedValue] = useState(defaultValue);
 
 //htmlName, htmlId, defaultValue are prop values that are passed in from App.js
     let times = [
