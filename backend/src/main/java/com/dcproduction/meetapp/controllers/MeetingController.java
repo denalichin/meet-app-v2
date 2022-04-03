@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.tomcat.util.json.JSONParser;
 import org.bson.json.JsonObject;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -62,6 +63,15 @@ public class MeetingController {
         System.out.println("TEST: PRINTING OUT JSON ");
         System.out.println(obj.toString(spacesToIndentEachLevel));
 
+        //prepare dates array
+        ArrayList<String> dates = new ArrayList<String>();     
+        JSONArray jArray = obj.getJSONArray("dates"); 
+        if (jArray != null) { 
+           for (int i=0;i<jArray.length();i++){ 
+            dates.add(jArray.getString(i));
+           } 
+        } 
+
         Meeting meetingObj = new Meeting(
             obj.getString("name"), 
             obj.getString("url"), 
@@ -70,7 +80,14 @@ public class MeetingController {
             obj.getInt("endTime"), 
             LocalDate.parse(obj.getString("startDate")), 
             LocalDate.parse(obj.getString("endDate")), 
+            dates,
             new ArrayList<User>());
+
+        
+           
+        
+
+        // System.out.println("Array: " + dates);
 
         System.out.println("CREATED object " + meetingObj.getName());
 

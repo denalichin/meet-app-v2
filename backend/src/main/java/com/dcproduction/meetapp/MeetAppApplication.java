@@ -17,6 +17,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import org.json.JSONObject;
+
 @SpringBootApplication
 public class MeetAppApplication implements CommandLineRunner{
 
@@ -45,8 +47,8 @@ public class MeetAppApplication implements CommandLineRunner{
 		// tempUsers.add("mark caddy");
 
 
-		Meeting testMeeting1 = new Meeting("test meeting", "temporary_url", "pacific", 8, 21, LocalDate.parse("2022-01-01"), LocalDate.parse("2022-09-09"), tempUsers);
-		Meeting testMeeting2 = new Meeting("test meeting2", "temporary_url2", "Eastern", 8, 22, LocalDate.parse("2020-01-01"), LocalDate.parse("2023-09-09"), tempUsers);
+		Meeting testMeeting1 = new Meeting("test meeting", "temporary_url", "pacific", 8, 21, LocalDate.parse("2022-01-01"), LocalDate.parse("2022-09-09"), null, tempUsers);
+		Meeting testMeeting2 = new Meeting("test meeting2", "temporary_url2", "Eastern", 8, 22, LocalDate.parse("2020-01-01"), LocalDate.parse("2023-09-09"), null, tempUsers);
 		meetingDB.save(testMeeting1);
 		meetingDB.save(testMeeting2);
 		System.out.println("FINISHED.");

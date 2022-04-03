@@ -58,6 +58,8 @@ function App() {
   const [endTime, setEndTime] = useState(17);
   const [timezone, setTimezone] = useState(moment.tz.guess()); //initialize to local timezone
 
+  const [serverCalendar, setServerCalendar] = useState([]);
+
 
   // const childFunc = React.useRef(null);
 
@@ -67,13 +69,20 @@ function App() {
     // childFunc.current(); //being called async?
     // setTimezone("HEELLLLLLOOOO");
     // console.log("finished invoking child function");
+    let dateArray = Array.from(serverCalendar);
+
+
+    dateArray.sort(function(a,b){ //sort dates in order
+      return moment(a, "YYYY-MM-DD") >  moment(b, "YYYY-MM-DD");
+    });
 
 
     event.preventDefault(); //prevents page from refreshing
     alert('Meeting Name:' +  meetingName + 
     '\nStartime: ' + startTime + 
     '\nEndtime: ' + endTime +
-    '\nTimezone: ' + timezone
+    '\nTimezone: ' + timezone +
+    '\ndates: ' + JSON.toString(Array.from(serverCalendar))
     );
 
     //defining our meeting object on the frontend to prepare for POST request
@@ -85,6 +94,7 @@ function App() {
       endTime: endTime,
       startDate: "2022-01-01",
       endDate: "2022-11-11",
+      dates: dateArray, //convert Set to Array then stringify its actually an object with current: Set so we call current
       users: {
         0: {
           username: "Blippy",
@@ -92,8 +102,12 @@ function App() {
           availability: []
         }
       }
+      
     }
-    // console.log("Created this object: \n", meetingObject);
+    console.log("Created this object: \n", meetingObject);
+    console.log("this here: ");
+
+    // console.log(Array.from(serverCalendar.current));
 
     fetch("http://localhost:8080/meet-app/create", {
       method: "POST",
@@ -113,7 +127,7 @@ function App() {
           value={meetingName} 
           onChange={(e) => setMeetingName(e.target.value)}/>  {/* need onChange state never changes */}
         <br/>
-        <label for="start-time">No Earlier Than</label>
+        <label>No Earlier Than</label>
         <TimeSelector 
           setTimeFunction = {setStartTime}
           htmlName="start-time" 
@@ -121,7 +135,7 @@ function App() {
           defaultValue={startTime}/>
         <br/>
 
-        <label for="end-time">No Later Than</label>
+        <label>No Later Than</label>
         <TimeSelector 
           setTimeFunction = {setEndTime}
           htmlName="end-time" 
@@ -130,7 +144,7 @@ function App() {
         <br/>
 
       {/* TEMPORARY, USE API CALL LATER?  AUTOSELECT TIMEZONE*/}
-      <label for="timezone">Timezone:</label>
+      <label>Timezone:</label>
       <TimezoneSelector key="unique_value" setTimezoneFunction = {setTimezone}/>
       
       {/* <CalendarComponent 
@@ -139,7 +153,10 @@ function App() {
       isMultiSelection = {true}
       /> */}
 
-      <CustomCalendar/>
+      <CustomCalendar
+        serverCalendar = {serverCalendar}
+        setServerCalendar = {setServerCalendar}
+      />
 
         <br/>
         <input type="submit" value="Create Meeting"/>

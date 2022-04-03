@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -22,12 +23,13 @@ public class Meeting {
     private LocalDate endDate;
 
     // @DBRef
+    private List<String> dates;
     private List<User> users;
     // private List<String> users;
 
     //the constructor
     public Meeting(String name, String url, String timezone, int startTime, 
-            int endTime, LocalDate startDate, LocalDate endDate, List<User> users) {
+            int endTime, LocalDate startDate, LocalDate endDate, List<String> dates, List<User> users) {
     // super();
         // this.id = id;
         this.name = name;
@@ -37,6 +39,7 @@ public class Meeting {
         this.endTime = endTime;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.dates = dates;
         this.users = users;
     }
 
