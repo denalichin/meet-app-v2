@@ -4,52 +4,30 @@ import './App.css';
 import axios from "axios";
 
 import Home from "./Home";
+import UserPortal from "./UserPortal";
 
-import moment from 'moment';
-import 'moment-timezone';
-
-const Meetings = () => {
-
-  const [meetingsState, setMeetings] = useState([]); //this is the state that will store meeting object
-
-  const fetchMeetings = () => {
-    axios.get("http://localhost:8080/meet-app").then(res => {
-      console.log("https request returned")
-      console.log(res);
-      setMeetings(res.data);
-    });
-  }
-
-  useEffect(() => {
-    fetchMeetings();
-  }, []);
-
-  return meetingsState.map((meetingData, index) => {
-    return (
-      <div key={index}>
-          <h1>{meetingData.name}</h1>
-          <p>{meetingData.url}</p>
-
-          {meetingData.users.map((userdata, userIndex) => { //submapping to map out users objects
-            return(
-              <div key = {userIndex}>
-                <p>{userdata.username}</p>
-                <p>{userdata.availability}</p>
-              </div>
-            )
-          })}
-      </div>
-    )
-  })
-};
-
-
+import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
 
 function App() {
 
   return (
-
-    <Home/>
+      <Router>
+        <nav>
+          <Link to="/"> Home </Link>
+          <Link to="/create"> UserPortal </Link>
+        </nav>
+        <Routes>
+          <Route exact path='/' element={<Home/>} />
+          <Route path='/create' element={<UserPortal/>} />
+          <Route path='/create/:userid' element={<UserPortal/>} />
+          {/* <Link to="/">
+            <Home />
+          </Link>
+          <Link to="/create">
+            <UserPortal />
+          </Link> */}
+        </Routes>
+      </Router>
   );
 }
 

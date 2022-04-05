@@ -8,12 +8,10 @@ import 'moment-timezone';
 
 import { TimeSelector } from "./components/TimeSelector.js";
 import { TimezoneSelector } from "./components/TimezoneSelector.js";
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import { CustomCalendar } from "./components/CustomCalendar";
 
-
-
+import { useNavigate } from "react-router-dom";
 
 const Meetings = () => {
 
@@ -61,6 +59,7 @@ function Home() {
     const [timezone, setTimezone] = useState(moment.tz.guess()); //initialize to local timezone
   
     const [serverCalendar, setServerCalendar] = useState([]);
+    const navigate = useNavigate(); //useNavigate hook. must be called up here because hooks must be loaded in order every time
   
   
     // const childFunc = React.useRef(null);
@@ -72,7 +71,7 @@ function Home() {
       // setTimezone("HEELLLLLLOOOO");
       // console.log("finished invoking child function");
       let dateArray = Array.from(serverCalendar);
-  
+      
   
       dateArray.sort(function(a,b){ //sort dates in order
         return moment(a, "YYYY-MM-DD") >  moment(b, "YYYY-MM-DD");
@@ -117,6 +116,8 @@ function Home() {
         body: JSON.stringify(meetingObject)
       }).then((res)=>{ //async function, this is the callback
         console.log('MEETING INSERTED: SERVER RESPONSE: \n', res);
+
+        navigate("/create");
       })
     }
   
