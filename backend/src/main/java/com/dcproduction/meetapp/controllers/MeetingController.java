@@ -78,8 +78,8 @@ public class MeetingController {
             obj.getString("timezone"), 
             obj.getInt("startTime"), 
             obj.getInt("endTime"), 
-            LocalDate.parse(obj.getString("startDate")), 
-            LocalDate.parse(obj.getString("endDate")), 
+            // LocalDate.parse(obj.getString("startDate")), 
+            // LocalDate.parse(obj.getString("endDate")), 
             dates,
             new ArrayList<User>());
 

@@ -19,8 +19,8 @@ public class Meeting {
     private String timezone;
     private int startTime;  //stored as an integer 0-24
     private int endTime;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    // private LocalDate startDate;
+    // private LocalDate endDate;
 
     // @DBRef
     private List<String> dates;
@@ -29,7 +29,7 @@ public class Meeting {
 
     //the constructor
     public Meeting(String name, String url, String timezone, int startTime, 
-            int endTime, LocalDate startDate, LocalDate endDate, List<String> dates, List<User> users) {
+            int endTime, List<String> dates, List<User> users) {
     // super();
         // this.id = id;
         this.name = name;
@@ -37,8 +37,8 @@ public class Meeting {
         this.timezone = timezone;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        // this.startDate = startDate;
+        // this.endDate = endDate;
         this.dates = dates;
         this.users = users;
     }
@@ -85,21 +85,21 @@ public class Meeting {
         this.endTime = endTime;
     }
 
-    public LocalDate getStartDate() {
-        return this.startDate;
-    }
+    // public LocalDate getStartDate() {
+    //     return this.startDate;
+    // }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
+    // public void setStartDate(LocalDate startDate) {
+    //     this.startDate = startDate;
+    // }
 
-    public LocalDate getEndDate() {
-        return this.endDate;
-    }
+    // public LocalDate getEndDate() {
+    //     return this.endDate;
+    // }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
+    // public void setEndDate(LocalDate endDate) {
+    //     this.endDate = endDate;
+    // }
 
     public List<User> getUsers() {
         return this.users;
