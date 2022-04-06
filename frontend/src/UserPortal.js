@@ -8,8 +8,7 @@ import 'moment-timezone';
 import {useNavigate, useParams} from "react-router-dom";
 
 function UserPortal() {
-    let {userid} = useParams();
-    
+    let {userid} = useParams();    
     return (  
         <div className="App">
             <h1>User Portal for {userid}</h1>

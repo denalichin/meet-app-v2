@@ -53,7 +53,7 @@ public class MeetingController {
     }
 
     @PostMapping("/create")
-    public Meeting createMeeting(@RequestBody String meetingString){
+    public String createMeeting(@RequestBody String meetingString){
         System.out.println("meeting recieved: " + meetingString);
 
         JSONObject obj = new JSONObject(meetingString);
@@ -91,7 +91,9 @@ public class MeetingController {
 
         System.out.println("CREATED object " + meetingObj.getName());
 
-        return service.createMeeting(meetingObj);
+         service.createMeeting(meetingObj);
+        //  System.out.println(meetingObj.getId());
+         return meetingObj.getId();
     }
 
 

@@ -110,16 +110,42 @@ function Home() {
   
       // console.log(Array.from(serverCalendar.current));
   
-      fetch("http://localhost:8080/meet-app/create", {
+      fetch("http://localhost:8080/meet-app/create", { //needs more security?
         method: "POST",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(meetingObject)
-      }).then((res)=>{ //async function, this is the callback
-        console.log('MEETING INSERTED: SERVER RESPONSE: \n', res);
-
-        navigate("/create");
-      })
+      }).then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not OK');
+            }
+            return response;
+          })
+      .then(response => response.text())
+      .then((response) => {
+        console.log(response) //id of the object
+        navigate("/register/" + response);
+      }).catch(err => console.log(err))
     }
+
+  //   fetch("http://localhost:8080/meet-app/create", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json"},
+  //     body: JSON.stringify(meetingObject)
+  //   }).then(response => {
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not OK');
+  //     }
+  //     return response;
+  //   }).then((res)=>{ //async function, this is the callback
+
+  //     // if(res.status = )
+  //     console.log('MEETING INSERTED: SERVER RESPONSE: \n', res.text());
+
+  //     navigate("/register/test");
+  //   }).catch(error => {
+  //     console.log(error);
+  //   })
+  // }
   
     return (
       <div className="App">

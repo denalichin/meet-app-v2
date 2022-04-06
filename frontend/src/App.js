@@ -7,6 +7,7 @@ import Home from "./Home";
 import UserPortal from "./UserPortal";
 
 import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
+import UserRegistration from "./UserRegistration";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         </nav>
         <Routes>
           <Route exact path='/' element={<Home/>} />
+          <Route path='/register/:meetingId' element={<UserRegistration/>} />
           <Route path='/create' element={<UserPortal/>} />
           <Route path='/create/:userid' element={<UserPortal/>} />
           {/* <Link to="/">
