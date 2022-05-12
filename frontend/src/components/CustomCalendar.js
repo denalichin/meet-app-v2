@@ -22,6 +22,8 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
     const [calendar, setCalendar] = useState([]); //this manages the calendar that we see on frontend
 
     const tempServerCalendar = useRef(new Set());//this is the data that gets sent to server
+
+
     
 
     useEffect(() => { //this code doesn't execute for every refresh
@@ -55,22 +57,32 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
         console.log(serverCalendar);
     };
 
+    // let mouseDown = 0;
+    const mouseDown = useRef(0);
+    const selectMode = useRef(true);
+
+    //https://github.com/pablofierro/react-drag-select/blob/master/lib/Selection.js
     const handleMouseDrag = (weekIndex, index) => {
-        console.log("entered " + weekIndex +  " " + index);
-        let mouseDown = 0;  
-        window.onmousedown = () => {  
-            ++mouseDown;  
-            if (mouseDown) {  
-                console.log('mouse button down')
-                handleToggle(weekIndex, index);
-            }  
+        console.log("entered " + weekIndex +  " " + index + " mouse=", mouseDown.current);
+          
+        window.onmousedown = (event) => {  
+            if(event.button === 0){ //make sure left mouse button clicked
+                mouseDown.current = mouseDown.current + 1;
+                console.log("++mouseDown to: " + mouseDown.current);
+            } 
+         
         }  
-        window.onmouseup = () => {  
-            --mouseDown;  
-            if (mouseDown) {  
-                console.log('mouse button down')  
-            }  
+        window.onmouseup = (event) => {   
+            if(event.button === 0){ //make sure left mouse button released
+                mouseDown.current = mouseDown.current - 1;
+                console.log("++mouseDown to: " + mouseDown.current);
+            } 
         }
+
+        if (mouseDown.current > 0) {   //check mouse down
+            console.log('mouse button down')
+            handleToggle(weekIndex, index);
+        }  
     };
 
 
@@ -84,8 +96,8 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
                         {
                             week.map((CalendarObj, index) => (
                                 <div key={index} className={`day ${calendar[weekIndex][index].isSelected ? 'selected' : ''}`} 
-                                    // onMouseEnter ={() => {handleMouseDrag(weekIndex, index)}}
-                                    onMouseDown={() => {handleToggle(weekIndex, index)}}
+                                    onMouseEnter ={() => {handleMouseDrag(weekIndex, index)}}
+                                    // onMouseDown={() => {handleToggle(weekIndex, index)}}
                                 >
                                     <div className="inner-day">
                                     {/* className={`form-control round-lg ${this.state.valid ? '' : 'error'}`} */}
