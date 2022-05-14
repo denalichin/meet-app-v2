@@ -10,23 +10,41 @@ class CalendarObject{
         this.dayObject = dayObject;
         this.isSelected = isSelected;
     }
-
-
-    
 }
 
 const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setServerCalendar}) {
     const currentDate = moment(); //get current date
     const startDay = currentDate.clone().startOf("month").startOf("week"); //start day of calendar for current view
     const endDay = currentDate.clone().endOf("month").endOf("week"); //end day of calendar for current view
-    const [calendar, setCalendar] = useState([]); //this manages the calendar that we see on frontend
+    const [calendar, setCalendar] = useState([]); //this manages the calendar that we see on frontend, holds all the data
 
     const tempServerCalendar = useRef(new Set());//this is the data that gets sent to server
 
+    const mouseDown = useRef(0); //used to detec whether mouse is being held down
+    const selectMode = useRef(true); //used to tell whether we should select/unselect everything we drag
 
-    
 
-    useEffect(() => { //this code doesn't execute for every refresh
+
+
+    const handleMouseDown = (event) => {
+        console.log("TEST MOUSE DOWN" + event.button);
+        if(event.button === 0){ //make sure left mouse button clicked
+            mouseDown.current = mouseDown.current + 1;
+            console.log("++mouseDown to: " + mouseDown.current);
+        } 
+    };
+
+    const handleMouseUp = (event) => {
+        console.log("test mouse up");
+        if(event.button === 0){ //make sure left mouse button released
+            mouseDown.current = mouseDown.current - 1;
+            console.log("--mouseDown to: " + mouseDown.current);
+        } 
+    }
+
+
+    //initializes frontend calendar with correct dates
+    useEffect(() => { //this code doesn't execute for every refresh, used for initialization, runs after render is committed to screen
         let cal = []; //temporary calendar
         const day = startDay.clone().subtract(1, "day"); //iterator
         while(day.isBefore(endDay, "day")) { //isbefore takes in a day and an interval which is "day"
@@ -35,22 +53,57 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
             )
         }
         setCalendar(cal);
-    },[]); //use effect will only be called if state in the [] is modified
 
-    const handleToggle = (weekIndex, index) => {
+        document.addEventListener('mousedown', handleMouseDown); //detect mouse up and down
+        document.addEventListener('mouseup', handleMouseUp);
+
+        return () => { //this is run when component is being unmounted
+            //good practice to remove event listeners when you no longer need them
+            document.removeEventListener('mousedown', handleMouseDown);
+            document.removeEventListener('mouseup', handleMouseUp);
+            console.log("UNMOUNTING");
+        }
+
+    },[]); //use effect will only be called if state in the [] is modified. Since we don't want it to be called again, leave the [] blank
+
+
+    //for drag to select, this sets whether we are selecting everything we drag or unselecting everything we drag
+
+
+    const setSelectionMode = (weekIndex, index) => {
+        // console.log("first click" + tempServerCalendar[weekIndex][index]);
+        console.log(calendar[weekIndex][index].isSelected);
+        if(calendar[weekIndex][index].isSelected){
+            selectMode.current = false;
+        } else{
+            selectMode.current = true;
+        }
+
+        handleToggle(weekIndex, index); //temporary
+        // if tempServerCalendar[weekIndex][index].
+    };
+
+
+    const handleToggle = (weekIndex, index) => { //TEMPORARY, will replace handletoggle
         console.log(weekIndex , " ", index);
         let cal = [...calendar]; //makes a new array. If we didn't have the [...] it would just be a reference to the original
         //the ... spreads out the contents of the array, so we are pulling out the contents of calendar but putting it back into []
         //since the reference/address never changes, even though we change the contents of array, React doesn't register it as a change
         
-        if(cal[weekIndex][index].isSelected){ //if we are unselecting it (this is before we update it)
-            tempServerCalendar.current.delete(cal[weekIndex][index].dayObject.format("YYYY-MM/DD").toString()); //.current is needed as it grabs the reference
-        } else{
+        if(selectMode.current){ //if we are selecting it, add to set of selected days to send to server
+            //since we are using a set, its fine if we add an existing day since set doesn't allow duplicates anyways
             tempServerCalendar.current.add(cal[weekIndex][index].dayObject.format("YYYY-MM/DD").toString()); //.current is needed as it grabs the reference
+        } else{
+            tempServerCalendar.current.delete(cal[weekIndex][index].dayObject.format("YYYY-MM/DD").toString()); //.current is needed as it grabs the reference
         }
 
-        cal[weekIndex][index].isSelected = !cal[weekIndex][index].isSelected;
-        setServerCalendar(tempServerCalendar.current);
+        if(selectMode.current){
+            cal[weekIndex][index].isSelected = true;
+        } else{
+            cal[weekIndex][index].isSelected = false;
+        }
+        
+        setServerCalendar(tempServerCalendar.current); //set the backend calendar
         setCalendar(cal); //controlls frontend calendar
 
         console.log(calendar[weekIndex][index].dayObject.format("D") + ": " + calendar[weekIndex][index].isSelected);
@@ -58,30 +111,15 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
     };
 
     // let mouseDown = 0;
-    const mouseDown = useRef(0);
-    const selectMode = useRef(true);
+
 
     //https://github.com/pablofierro/react-drag-select/blob/master/lib/Selection.js
     const handleMouseDrag = (weekIndex, index) => {
         console.log("entered " + weekIndex +  " " + index + " mouse=", mouseDown.current);
           
-        window.onmousedown = (event) => {  
-            if(event.button === 0){ //make sure left mouse button clicked
-                mouseDown.current = mouseDown.current + 1;
-                console.log("++mouseDown to: " + mouseDown.current);
-            } 
-         
-        }  
-        window.onmouseup = (event) => {   
-            if(event.button === 0){ //make sure left mouse button released
-                mouseDown.current = mouseDown.current - 1;
-                console.log("++mouseDown to: " + mouseDown.current);
-            } 
-        }
-
         if (mouseDown.current > 0) {   //check mouse down
             console.log('mouse button down')
-            handleToggle(weekIndex, index);
+            handleToggle(weekIndex, index); //temporary
         }  
     };
 
@@ -96,8 +134,8 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
                         {
                             week.map((CalendarObj, index) => (
                                 <div key={index} className={`day ${calendar[weekIndex][index].isSelected ? 'selected' : ''}`} 
-                                    onMouseEnter ={() => {handleMouseDrag(weekIndex, index)}}
-                                    // onMouseDown={() => {handleToggle(weekIndex, index)}}
+                                    onMouseEnter ={() => {handleMouseDrag(weekIndex, index)}} //drag to select (WIP)
+                                    onMouseDown={() => {setSelectionMode(weekIndex, index)}} //this can be set to handleToggle instead
                                 >
                                     <div className="inner-day">
                                     {/* className={`form-control round-lg ${this.state.valid ? '' : 'error'}`} */}
