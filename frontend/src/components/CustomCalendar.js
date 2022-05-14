@@ -26,21 +26,7 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
 
 
 
-    const handleMouseDown = (event) => {
-        console.log("TEST MOUSE DOWN" + event.button);
-        if(event.button === 0){ //make sure left mouse button clicked
-            mouseDown.current = mouseDown.current + 1;
-            console.log("++mouseDown to: " + mouseDown.current);
-        } 
-    };
 
-    const handleMouseUp = (event) => {
-        console.log("test mouse up");
-        if(event.button === 0){ //make sure left mouse button released
-            mouseDown.current = mouseDown.current - 1;
-            console.log("--mouseDown to: " + mouseDown.current);
-        } 
-    }
 
 
     //initializes frontend calendar with correct dates
@@ -66,7 +52,19 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
 
     },[]); //use effect will only be called if state in the [] is modified. Since we don't want it to be called again, leave the [] blank
 
+    const handleMouseDown = (event) => {
+        if(event.button === 0){ //make sure left mouse button clicked
+            mouseDown.current = mouseDown.current + 1;
+            console.log("++mouseDown to: " + mouseDown.current);
+        } 
+    };
 
+    const handleMouseUp = (event) => {
+        if(event.button === 0){ //make sure left mouse button released
+            mouseDown.current = mouseDown.current - 1;
+            console.log("--mouseDown to: " + mouseDown.current);
+        } 
+    }
     //for drag to select, this sets whether we are selecting everything we drag or unselecting everything we drag
 
 
@@ -84,7 +82,7 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
     };
 
 
-    const handleToggle = (weekIndex, index) => { //TEMPORARY, will replace handletoggle
+    const handleToggle = (weekIndex, index) => {
         console.log(weekIndex , " ", index);
         let cal = [...calendar]; //makes a new array. If we didn't have the [...] it would just be a reference to the original
         //the ... spreads out the contents of the array, so we are pulling out the contents of calendar but putting it back into []
@@ -92,9 +90,9 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
         
         if(selectMode.current){ //if we are selecting it, add to set of selected days to send to server
             //since we are using a set, its fine if we add an existing day since set doesn't allow duplicates anyways
-            tempServerCalendar.current.add(cal[weekIndex][index].dayObject.format("YYYY-MM/DD").toString()); //.current is needed as it grabs the reference
+            tempServerCalendar.current.add(cal[weekIndex][index].dayObject.format("YYYY-MM-DD").toString()); //.current is needed as it grabs the reference
         } else{
-            tempServerCalendar.current.delete(cal[weekIndex][index].dayObject.format("YYYY-MM/DD").toString()); //.current is needed as it grabs the reference
+            tempServerCalendar.current.delete(cal[weekIndex][index].dayObject.format("YYYY-MM-DD").toString()); //.current is needed as it grabs the reference
         }
 
         if(selectMode.current){
@@ -109,9 +107,6 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
         console.log(calendar[weekIndex][index].dayObject.format("D") + ": " + calendar[weekIndex][index].isSelected);
         console.log(serverCalendar);
     };
-
-    // let mouseDown = 0;
-
 
     //https://github.com/pablofierro/react-drag-select/blob/master/lib/Selection.js
     const handleMouseDrag = (weekIndex, index) => {
@@ -135,7 +130,7 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
                             week.map((CalendarObj, index) => (
                                 <div key={index} className={`day ${calendar[weekIndex][index].isSelected ? 'selected' : ''}`} 
                                     onMouseEnter ={() => {handleMouseDrag(weekIndex, index)}} //drag to select (WIP)
-                                    onMouseDown={() => {setSelectionMode(weekIndex, index)}} //this can be set to handleToggle instead
+                                    onMouseDown={() => {setSelectionMode(weekIndex, index)}} //clicking the first element
                                 >
                                     <div className="inner-day">
                                     {/* className={`form-control round-lg ${this.state.valid ? '' : 'error'}`} */}
