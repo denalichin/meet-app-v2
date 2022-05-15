@@ -1,5 +1,7 @@
 package com.dcproduction.meetapp.classes;
 
+import java.util.Map;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,9 +12,9 @@ public class User {
     
     private String username;
     private String password;
-    private int[] availability;
+    private Map<String, boolean[]> availability;
 
-    public User(String username, String password, int[] availability){
+    public User(String username, String password,  Map<String, boolean[]> availability){
         this.username = username;
         this.password = password;
         this.availability = availability;
@@ -34,11 +36,11 @@ public class User {
         this.password = password;
     }
 
-    public int[] getAvailability() {
+    public Map<String, boolean[]> getAvailability() {
         return this.availability;
     }
 
-    public void setAvailability(int[] availability) {
+    public void setAvailability(Map<String, boolean[]> availability) {
         this.availability = availability;
     }
 

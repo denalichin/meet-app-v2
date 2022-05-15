@@ -40,13 +40,13 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
         }
         setCalendar(cal);
 
-        document.addEventListener('mousedown', handleMouseDown); //detect mouse up and down
-        document.addEventListener('mouseup', handleMouseUp);
+        // document.addEventListener('mousedown', handleMouseDown); //detect mouse up and down
+        // document.addEventListener('mouseup', handleMouseUp);
 
         return () => { //this is run when component is being unmounted
             //good practice to remove event listeners when you no longer need them
-            document.removeEventListener('mousedown', handleMouseDown);
-            document.removeEventListener('mouseup', handleMouseUp);
+            // document.removeEventListener('mousedown', handleMouseDown);
+            // document.removeEventListener('mouseup', handleMouseUp);
             console.log("UNMOUNTING");
         }
 
@@ -68,17 +68,21 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
     //for drag to select, this sets whether we are selecting everything we drag or unselecting everything we drag
 
 
-    const setSelectionMode = (weekIndex, index) => {
+    const setSelectionMode = (event, weekIndex, index) => {
         // console.log("first click" + tempServerCalendar[weekIndex][index]);
         console.log(calendar[weekIndex][index].isSelected);
-        if(calendar[weekIndex][index].isSelected){
-            selectMode.current = false;
-        } else{
-            selectMode.current = true;
-        }
 
-        handleToggle(weekIndex, index); //temporary
-        // if tempServerCalendar[weekIndex][index].
+        if (event.buttons === 1) {   //check mouse down
+            if(calendar[weekIndex][index].isSelected){
+                selectMode.current = false;
+            } else{
+                selectMode.current = true;
+            }
+    
+            handleToggle(weekIndex, index); //temporary
+            // if tempServerCalendar[weekIndex][index].
+        }  
+        
     };
 
 
@@ -104,16 +108,16 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
         setServerCalendar(tempServerCalendar.current); //set the backend calendar
         setCalendar(cal); //controlls frontend calendar
 
-        console.log(calendar[weekIndex][index].dayObject.format("D") + ": " + calendar[weekIndex][index].isSelected);
-        console.log(serverCalendar);
+        // console.log(calendar[weekIndex][index].dayObject.format("D") + ": " + calendar[weekIndex][index].isSelected);
+        // console.log(serverCalendar);
     };
 
     //https://github.com/pablofierro/react-drag-select/blob/master/lib/Selection.js
-    const handleMouseDrag = (weekIndex, index) => {
-        console.log("entered " + weekIndex +  " " + index + " mouse=", mouseDown.current);
+    const handleMouseDrag = (event, weekIndex, index) => {
+        console.log("entered " + weekIndex +  " " + index + " mouse=", event.buttons);
           
-        if (mouseDown.current > 0) {   //check mouse down
-            console.log('mouse button down')
+        // if (mouseDown.current) { //if left click is being pressed
+        if (event.buttons === 1) {   //check mouse down
             handleToggle(weekIndex, index); //temporary
         }  
     };
@@ -129,8 +133,8 @@ const CustomCalendar = React.memo( function CustomCalendar({serverCalendar, setS
                         {
                             week.map((CalendarObj, index) => (
                                 <div key={index} className={`day ${calendar[weekIndex][index].isSelected ? 'selected' : ''}`} 
-                                    onMouseEnter ={() => {handleMouseDrag(weekIndex, index)}} //drag to select (WIP)
-                                    onMouseDown={() => {setSelectionMode(weekIndex, index)}} //clicking the first element
+                                    onMouseEnter ={(event) => {handleMouseDrag(event, weekIndex, index)}} //drag to select (WIP)
+                                    onMouseDown={(event) => {setSelectionMode(event, weekIndex, index)}} //clicking the first element
                                 >
                                     <div className="inner-day">
                                     {/* className={`form-control round-lg ${this.state.valid ? '' : 'error'}`} */}

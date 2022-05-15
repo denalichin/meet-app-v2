@@ -2,7 +2,9 @@ package com.dcproduction.meetapp;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.dcproduction.meetapp.classes.Meeting;
 import com.dcproduction.meetapp.classes.User;
@@ -39,7 +41,11 @@ public class MeetAppApplication implements CommandLineRunner{
 		List<User> tempUsers = new ArrayList<User>();
 		// List<String> tempUsers = new ArrayList();
 
-		int temp_availability[] = { 1, 2, 3, 4, 5 };
+		boolean[] temp_hours = {true, true, false, false};
+		Map<String, boolean[]> temp_availability = new HashMap<String, boolean[]>();
+		temp_availability.put("2022-01-01", temp_hours);
+
+		// int temp_availability[] = { 1, 2, 3, 4, 5 };
 
 		tempUsers.add(new User("Mark", "Caddy", temp_availability));
 		tempUsers.add(new User("Bill", "Bobby", temp_availability));
