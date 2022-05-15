@@ -1,5 +1,6 @@
 package com.dcproduction.meetapp.classes;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
@@ -12,9 +13,9 @@ public class User {
     
     private String username;
     private String password;
-    private Map<String, boolean[]> availability;
+    private Map<String, List<int[]>> availability;
 
-    public User(String username, String password,  Map<String, boolean[]> availability){
+    public User(String username, String password,  Map<String, List<int[]>> availability){
         this.username = username;
         this.password = password;
         this.availability = availability;
@@ -36,11 +37,11 @@ public class User {
         this.password = password;
     }
 
-    public Map<String, boolean[]> getAvailability() {
+    public Map<String, List<int[]>> getAvailability() {
         return this.availability;
     }
 
-    public void setAvailability(Map<String, boolean[]> availability) {
+    public void setAvailability(Map<String, List<int[]>> availability) {
         this.availability = availability;
     }
 

@@ -41,8 +41,17 @@ public class MeetAppApplication implements CommandLineRunner{
 		List<User> tempUsers = new ArrayList<User>();
 		// List<String> tempUsers = new ArrayList();
 
-		boolean[] temp_hours = {true, true, false, false};
-		Map<String, boolean[]> temp_availability = new HashMap<String, boolean[]>();
+		List<int[]> temp_hours = new ArrayList<int[]> ();
+
+		int[] arr1 = {0,1};
+		int[] arr2 = {5,9};
+		int[] arr3 = {11,13};
+
+		temp_hours.add(arr1);
+		temp_hours.add(arr2);
+		temp_hours.add(arr3);
+
+		Map<String, List<int[]>> temp_availability = new HashMap<String, List<int[]>>();
 		temp_availability.put("2022-01-01", temp_hours);
 
 		// int temp_availability[] = { 1, 2, 3, 4, 5 };
