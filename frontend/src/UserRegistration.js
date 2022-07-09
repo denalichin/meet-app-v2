@@ -32,29 +32,29 @@ const registrationSubmit = (event) => {
     }
 
 
-    /*
-    console.log("Created this object: \n", meetingObject);
-    console.log("this here: ");
+    
+    // console.log("Created this object: \n", meetingObject);
+    // console.log("this here: ");
 
-    // console.log(Array.from(serverCalendar.current));
+    // // console.log(Array.from(serverCalendar.current));
 
-    fetch("http://localhost:8080/meet-app/create", { //needs more security?
-        method: "POST",
-        headers: { "Content-Type": "application/json"},
-        body: JSON.stringify(meetingObject)
-    }).then(response => {
-            if (!response.ok) {
-            throw new Error('Network response was not OK');
-            }
-            return response;
-        })
-    .then(response => response.text())
-    .then((response) => {
-        console.log(response) //id of the object
-        navigate("/register/" + response);
-    }).catch(err => console.log(err))
+    // fetch("http://localhost:8080/meet-app/create", { //needs more security?
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json"},
+    //     body: JSON.stringify(meetingObject)
+    // }).then(response => {
+    //         if (!response.ok) {
+    //         throw new Error('Network response was not OK');
+    //         }
+    //         return response;
+    //     })
+    // .then(response => response.text())
+    // .then((response) => {
+    //     console.log(response) //id of the object
+    //     navigate("/register/" + response);
+    // }).catch(err => console.log(err))
 
- */
+ 
 
 };
 

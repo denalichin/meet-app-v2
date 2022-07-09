@@ -192,7 +192,7 @@ function Home() {
   
         </form>
   
-        <Meetings key="anothervalue" />
+        {/* <Meetings key="anothervalue" /> */}
       </div>
     );
   }

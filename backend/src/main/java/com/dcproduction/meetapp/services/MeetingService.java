@@ -7,6 +7,9 @@ import com.dcproduction.meetapp.classes.User;
 import com.dcproduction.meetapp.repositories.MeetingRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,8 +28,6 @@ public class MeetingService {
     public Meeting createMeeting(Meeting meetingObj){
         return meetingDB.save(meetingObj);
     }
-
-
 
     // public List<User> findUsers(String meetingName){
     //     return meetingDB.findUsers(meetingName);
